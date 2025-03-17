@@ -10,6 +10,11 @@
     <div class="card">
         <div class="card-header">Patients List</div>
         <div class="card-body">
+            <form class="d-flex pb-2" th:action="@{index}" method="get">
+                <input type="text" class="form-control me-2" th:value="${keyword}" name="keyword"
+                       placeholder="Search by a keyword">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
             <table class="table">
                 <thead>
                 <tr>
@@ -31,7 +36,7 @@
                         <a th:href="@{'/patients/' + ${patient.id} + '/edit'}" class="btn btn-secondary">
                             Edit
                         </a>
-                        <a th:href="@{'/patients/' + ${patient.id} + '/delete'}" class="btn btn-danger">
+                        <a th:href="@{delete(id=${patient.id})}" class="btn btn-danger">
                             Delete
                         </a>
                     </td>
@@ -40,7 +45,7 @@
             </table>
             <ul class="nav nav-pills">
                 <li th:each="page, status: ${pages}">
-                    <a th:href="@{/index(page=${status.index})}"
+                    <a th:href="@{/index(page=${status.index}, keyword=${keyword}) }"
                        th:class="${currentPage == status.index} ? 'btn btn-info ms-1' : 'btn btn-outline-info ms-1'"
                        th:text="${status.index + 1}"
                     ></a>
