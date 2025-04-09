@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="template1"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/webjars/bootstrap/5.3.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/webjars/bootstrap-icons/1.11.3/font/bootstrap-icons.css">
+    <title>Patient Form</title>
+</head>
+<body class="bg-light">
+<div layout:fragment="content1">
+    <div class="container py-4">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Patient Form</h5>
+            </div>
+            <div class="card-body">
+                <form th:action="@{save}" method="post" th:object="${patient}">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Full Name</label>
+                        <input type="text" id="name" th:field="*{name}" th:value="${patient.name}" class="form-control">
+                        <span th:errors="${patient.name}"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="birthDate" class="form-label">Birth Date</label>
+                        <input type="date" id="birthDate" th:field="*{birthDate}" th:value="${patient.birthDate}"
+                               class="form-control">
+                        <span th:errors="${patient.birthDate}"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="sick" class="form-check-label">Sick?</label>
+                        <input type="checkbox" id="sick" th:field="*{sick}" th:checked=" ${patient.sick}"
+                               class="form-check-input">
+                        <span th:errors="${patient.sick}"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="score" class="form-label">Score</label>
+                        <input type="text" id="score" th:field="*{score}" th:value="${patient.score}"
+                               class="form-control">
+                        <span th:errors="${patient.score}"></span>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.util.Date;
 
 @SpringBootApplication
-public class Lab3SpringMvcDataJpaThymeleafApplication implements CommandLineRunner {
+public class Lab3SpringMvcDataJpaThymeleafApplication {
 
     final
     PatientRepository patientRepository;
@@ -22,27 +22,29 @@ public class Lab3SpringMvcDataJpaThymeleafApplication implements CommandLineRunn
         SpringApplication.run(Lab3SpringMvcDataJpaThymeleafApplication.class, args);
     }
 
-    @Override
-    public void run(String... args) {
-        patientRepository.save(Patient.builder()
-                .name("Hassan")
-                .birthDate(new Date())
-                .sick(false)
-                .score(32)
-                .build());
+    // @Bean
+    CommandLineRunner commandLineRunner(PatientRepository patientRepository) {
+        return args -> {
+            patientRepository.save(Patient.builder()
+                    .name("Hassan")
+                    .birthDate(new Date())
+                    .sick(false)
+                    .score(132)
+                    .build());
 
-        patientRepository.save(Patient.builder()
-                .name("Rachid")
-                .birthDate(new Date())
-                .sick(true)
-                .score(10)
-                .build());
+            patientRepository.save(Patient.builder()
+                    .name("Rachid")
+                    .birthDate(new Date())
+                    .sick(true)
+                    .score(110)
+                    .build());
 
-        patientRepository.save(Patient.builder()
-                .name("Loubna")
-                .birthDate(new Date())
-                .sick(false)
-                .score(3)
-                .build());
+            patientRepository.save(Patient.builder()
+                    .name("Loubna")
+                    .birthDate(new Date())
+                    .sick(false)
+                    .score(123)
+                    .build());
+        };
     }
 }
