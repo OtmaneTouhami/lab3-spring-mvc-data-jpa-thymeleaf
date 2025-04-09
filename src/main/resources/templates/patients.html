@@ -1,5 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="template1"
+>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +13,7 @@
     <title>Patients List</title>
 </head>
 <body class="bg-light">
+<div layout:fragment="content1">
 <div class="container py-4">
     <div class="card shadow-sm">
         <div class="card-header bg-primary text-white">
@@ -68,6 +74,7 @@
             </nav>
         </div>
     </div>
+</div>
 </div>
 
 <script src="/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
