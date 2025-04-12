@@ -20,7 +20,7 @@
                 <h5 class="mb-0">Patient Update Form</h5>
             </div>
             <div class="card-body">
-                <form th:action="@{/save(page=${page}, keyword=${keyword})}" method="post" th:object="${patient}">
+                <form th:action="@{/admin/save(page=${page}, keyword=${keyword})}" method="post" th:object="${patient}">
                     <input type="hidden" th:field="*{id}">
 
                     <div class="mb-3">
