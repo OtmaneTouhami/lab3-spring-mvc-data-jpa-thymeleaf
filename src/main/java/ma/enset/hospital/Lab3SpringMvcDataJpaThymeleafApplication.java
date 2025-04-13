@@ -2,6 +2,7 @@ package ma.enset.hospital;
 
 import ma.enset.hospital.entities.Patient;
 import ma.enset.hospital.repository.PatientRepository;
+import ma.enset.hospital.security.service.AccountService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -58,7 +59,7 @@ public class Lab3SpringMvcDataJpaThymeleafApplication {
         };
     }
 
-    @Bean
+    // @Bean
     CommandLineRunner start(JdbcUserDetailsManager jdbcUserDetailsManager) {
         return args -> {
             String encodedPassword = passwordEncoder().encode("1234");
@@ -73,6 +74,33 @@ public class Lab3SpringMvcDataJpaThymeleafApplication {
 
             if (!jdbcUserDetailsManager.userExists("admin")) {
                 jdbcUserDetailsManager.createUser(User.withUsername("admin").password(encodedPassword).roles("USER", "ADMIN").build());
+            }
+        };
+    }
+
+    @Bean
+    CommandLineRunner CommandLineRunnerUserDetails(AccountService accountService) {
+        return args -> {
+            if (accountService.loadRole("USER") == null) {
+                accountService.addNewRole("USER");
+            }
+            if (accountService.loadRole("ADMIN") == null) {
+                accountService.addNewRole("ADMIN");
+            }
+            if (accountService.loadUserByUsername("user1") == null) {
+                accountService.addNewUser("user1", "1234", "user1@gmail.com", "1234");
+                accountService.addRoleToUser("user1", "USER");
+            }
+
+            if (accountService.loadUserByUsername("user2") == null) {
+                accountService.addNewUser("user2", "1234", "user2@gmail.com", "1234");
+                accountService.addRoleToUser("user2", "USER");
+            }
+
+            if (accountService.loadUserByUsername("admin") == null) {
+                accountService.addNewUser("admin", "1234", "admin@gmail.com", "1234");
+                accountService.addRoleToUser("admin", "USER");
+                accountService.addRoleToUser("admin", "ADMIN");
             }
         };
     }

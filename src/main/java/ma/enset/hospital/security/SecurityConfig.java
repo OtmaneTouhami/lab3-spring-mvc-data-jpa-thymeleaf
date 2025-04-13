@@ -1,5 +1,7 @@
 package ma.enset.hospital.security;
 
+import lombok.AllArgsConstructor;
+import ma.enset.hospital.security.service.Impl.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -16,9 +18,12 @@ import javax.sql.DataSource;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity()
+@AllArgsConstructor
 public class SecurityConfig {
 
-    @Bean
+    private UserDetailsServiceImpl userDetailsService;
+
+    //@Bean
     public JdbcUserDetailsManager jdbcUserDetailsManager(DataSource dataSource) {
         return new JdbcUserDetailsManager(dataSource);
     }
@@ -56,6 +61,7 @@ public class SecurityConfig {
 //                .authorizeHttpRequests(ar -> ar.requestMatchers("/admin/**").hasRole("ADMIN"))
 //                .authorizeHttpRequests(ar -> ar.requestMatchers("/user/**").hasRole("USER"))
                 .authorizeHttpRequests(ar -> ar.anyRequest().authenticated())
+                .userDetailsService(userDetailsService)
                 .build();
     }
 }
